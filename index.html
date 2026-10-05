@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>ZYNTRA — Votre communauté. Votre univers.</title>
+
+  <meta
+    name="description"
+    content="ZYNTRA est une plateforme sociale pour les créateurs, les lives, le partage d'écran et les communautés."
+  >
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #07070b;
+      color: #ffffff;
+      line-height: 1.6;
+    }
+
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 7%;
+      background: rgba(7, 7, 11, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .logo {
+      font-size: 25px;
+      font-weight: 900;
+      letter-spacing: 3px;
+    }
+
+    nav a {
+      color: #ffffff;
+      text-decoration: none;
+      margin-left: 25px;
+      opacity: 0.8;
+    }
+
+    nav a:hover {
+      opacity: 1;
+    }
+
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 120px 7% 80px;
+      background:
+        radial-gradient(circle at 50% 30%, rgba(120, 60, 255, 0.25), transparent 45%),
+        #07070b;
+    }
+
+    .hero-content {
+      max-width: 900px;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 8px 16px;
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 30px;
+      margin-bottom: 25px;
+      color: #cfcfcf;
+      font-size: 14px;
+    }
+
+    h1 {
+      font-size: clamp(55px, 11vw, 110px);
+      line-height: 0.95;
+      letter-spacing: -5px;
+      margin-bottom: 25px;
+    }
+
+    .hero p {
+      max-width: 680px;
+      margin: auto;
+      color: #b8b8c0;
+      font-size: 20px;
+    }
+
+    .buttons {
+      margin-top: 35px;
+    }
+
+    .button {
+      display: inline-block;
+      padding: 14px 25px;
+      margin: 7px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: bold;
+      background: #ffffff;
+      color: #08080c;
+    }
+
+    .button.secondary {
+      background: rgba(255,255,255,0.08);
+      color: #ffffff;
+      border: 1px solid rgba(255,255,255,0.12);
+    }
+
+    section {
+      padding: 100px 7%;
+    }
+
+    .section-title {
+      max-width: 750px;
+      margin-bottom: 50px;
+    }
+
+    .section-title h2 {
+      font-size: 45px;
+      margin-bottom: 15px;
+    }
+
+    .section-title p {
+      color: #a8a8b0;
+      font-size: 18px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .card {
+      padding: 30px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.045);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .card .icon {
+      font-size: 35px;
+      margin-bottom: 20px;
+    }
+
+    .card h3 {
+      font-size: 23px;
+      margin-bottom: 12px;
+    }
+
+    .card p {
+      color: #a8a8b0;
+    }
+
+    .highlight {
+      background:
+        radial-gradient(circle at 80% 50%, rgba(100, 50, 255, 0.2), transparent 45%),
+        #0b0b11;
+    }
+
+    .cta {
+      text-align: center;
+      padding: 120px 7%;
+      background: #0a0a0f;
+    }
+
+    .cta h2 {
+      font-size: 50px;
+      margin-bottom: 20px;
+    }
+
+    .cta p {
+      color: #aaaab3;
+      margin-bottom: 30px;
+    }
+
+    footer {
+      padding: 35px 7%;
+      text-align: center;
+      color: #777780;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+
+    @media (max-width: 800px) {
+      nav {
+        padding: 16px 5%;
+      }
+
+      nav .links {
+        display: none;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      section {
+        padding: 75px 6%;
+      }
+
+      .section-title h2 {
+        font-size: 36px;
+      }
+
+      .cta h2 {
+        font-size: 38px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav>
+    <div class="logo">ZYNTRA</div>
+
+    <div class="links">
+      <a href="#fonctionnalites">Fonctionnalités</a>
+      <a href="#createurs">Créateurs</a>
+      <a href="#supporter">Supporter</a>
+    </div>
+  </nav>
+
+  <main>
+
+    <section class="hero">
+      <div class="hero-content">
+
+        <div class="badge">
+          La nouvelle génération du social
+        </div>
+
+        <h1>ZYNTRA</h1>
+
+        <p>
+          Votre communauté. Votre univers. Votre réseau.
+          Découvrez des créateurs, participez aux lives,
+          partagez votre écran et construisez votre communauté.
+        </p>
+
+        <div class="buttons">
+          <a class="button" href="#fonctionnalites">
+            Découvrir ZYNTRA
+          </a>
+
+          <a class="button secondary" href="#createurs">
+            Pour les créateurs
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+    <section id="fonctionnalites">
+
+      <div class="section-title">
+        <h2>Tout ce qu'il faut pour créer.</h2>
+
+        <p>
+          ZYNTRA rassemble les outils essentiels pour
+          connecter les créateurs et leurs communautés.
+        </p>
+      </div>
+
+      <div class="grid">
+
+        <div class="card">
+          <div class="icon">🎥</div>
+          <h3>Lives</h3>
+          <p>
+            Lancez vos lives et échangez directement
+            avec votre communauté.
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="icon">🖥️</div>
+          <h3>Screen Share</h3>
+          <p>
+            Partagez votre écran, votre jeu, votre application
+            ou votre bureau depuis mobile et PC.
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="icon">👥</div>
+          <h3>Communauté</h3>
+          <p>
+            Découvrez des créateurs, suivez vos favoris
+            et échangez avec la communauté.
+          </p>
+        </div>
+
+      </div>
+
+    </section>
+
+    <section id="createurs" class="highlight">
+
+      <div class="section-title">
+        <h2>Créé pour les créateurs.</h2>
+
+        <p>
+          Développez votre audience, partagez votre univers
+          et construisez une communauté autour de votre contenu.
+        </p>
+      </div>
+
+      <div class="grid">
+
+        <div class="card">
+          <div class="icon">🚀</div>
+          <h3>Développez votre audience</h3>
+          <p>
+            Présentez votre contenu et faites découvrir
+            votre univers à de nouveaux membres.
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="icon">🎮</div>
+          <h3>Partagez votre contenu</h3>
+          <p>
+            Jeux, projets, logiciels, créations ou discussions :
+            partagez ce qui vous passionne.
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="icon">🌍</div>
+          <h3>Construisez votre communauté</h3>
+          <p>
+            Créez une relation directe et durable avec
+            les personnes qui vous suivent.
+          </p>
+        </div>
+
+      </div>
+
+    </section>
+
+    <section id="supporter">
+
+      <div class="section-title">
+        <h2>🏅 Soutenez vos créateurs.</h2>
+
+        <p>
+          Devenez Supporter et affichez votre badge spécial
+          sur votre profil pour montrer votre soutien.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Votre soutien compte.</h3>
+
+        <p>
+          Choisissez les créateurs que vous appréciez,
+          soutenez leur travail et faites partie de leur communauté.
+        </p>
+      </div>
+
+    </section>
+
+    <section id="telecharger" class="cta">
+
+      <h2>Téléchargez ZYNTRA.</h2>
+
+      <p>
+        Retrouvez votre communauté sur mobile et bientôt sur PC.
+      </p>
+
+      <a class="button" href="#" onclick="alert('Le téléchargement Android sera disponible dès que le nouveau build sera terminé.')">
+        📱 Télécharger pour Android
+      </a>
+
+      <a class="button secondary" href="#" onclick="alert('La version PC arrive bientôt.')">
+        🖥️ Version PC
+      </a>
+
+    </section>
+
+    <section class="cta">
+
+      <h2>Bienvenue sur ZYNTRA.</h2>
+
+      <p>
+        Créez. Partagez. Livez. Soutenez.
+      </p>
+
+      <a class="button" href="#telecharger">
+        Télécharger ZYNTRA
+      </a>
+
+    </section>
+
+  </main>
+
+  <footer>
+    © 2026 ZYNTRA — Votre communauté. Votre univers.
+  </footer>
+
+</body>
+</html>
