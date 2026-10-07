@@ -199,6 +199,45 @@
       border-top: 1px solid rgba(255,255,255,0.08);
     }
 
+
+    .support-card {
+      max-width: 620px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .support-price {
+      font-size: 42px;
+      font-weight: 900;
+      margin: 18px 0 6px;
+    }
+
+    .support-note {
+      color: #8f8f99;
+      font-size: 14px;
+      margin-bottom: 22px;
+    }
+
+    #paypal-button-container {
+      max-width: 420px;
+      margin: 24px auto 0;
+      min-height: 45px;
+    }
+
+    #paypal-status {
+      margin-top: 16px;
+      font-weight: 700;
+      min-height: 24px;
+    }
+
+    #paypal-status.success {
+      color: #7ee787;
+    }
+
+    #paypal-status.error {
+      color: #ff8a8a;
+    }
+
     @media (max-width: 800px) {
       nav {
         padding: 16px 5%;
@@ -368,13 +407,19 @@
         </p>
       </div>
 
-      <div class="card">
+      <div class="card support-card">
         <h3>Votre soutien compte.</h3>
 
         <p>
-          Choisissez les créateurs que vous appréciez,
-          soutenez leur travail et faites partie de leur communauté.
+          Soutenez ZYNTRA avec un paiement unique et contribuez
+          au développement de la plateforme.
         </p>
+
+        <div class="support-price">5,00 €</div>
+        <div class="support-note">Paiement unique · Mode test PayPal Sandbox</div>
+
+        <div id="paypal-button-container"></div>
+        <div id="paypal-status" aria-live="polite"></div>
       </div>
 
     </section>
@@ -416,6 +461,100 @@
   <footer>
     © 2026 ZYNTRA — Votre communauté. Votre univers.
   </footer>
+
+  <script>
+    const paypalStatus = document.getElementById('paypal-status');
+
+    function setPayPalStatus(message, type = '') {
+      paypalStatus.textContent = message;
+      paypalStatus.className = type;
+    }
+
+    async function loadPayPal() {
+      try {
+        setPayPalStatus('Chargement de PayPal…');
+
+        const configResponse = await fetch('/api/paypal/config');
+        const config = await configResponse.json();
+
+        if (!configResponse.ok || !config.clientId) {
+          throw new Error(config.error || 'Client ID PayPal manquant.');
+        }
+
+        const script = document.createElement('script');
+        script.src = `https://www.paypal.com/sdk/js?client-id=${encodeURIComponent(config.clientId)}&currency=EUR&intent=capture`;
+        script.async = true;
+
+        script.onload = () => {
+          setPayPalStatus('');
+
+          paypal.Buttons({
+            style: {
+              layout: 'vertical',
+              shape: 'rect',
+              label: 'paypal'
+            },
+
+            createOrder: async () => {
+              setPayPalStatus('Création du paiement…');
+
+              const response = await fetch('/api/paypal/create-order', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' }
+              });
+
+              const data = await response.json();
+
+              if (!response.ok || !data.id) {
+                throw new Error(data.error || 'Impossible de créer le paiement.');
+              }
+
+              setPayPalStatus('');
+              return data.id;
+            },
+
+            onApprove: async (data) => {
+              setPayPalStatus('Validation du paiement…');
+
+              const response = await fetch('/api/paypal/capture-order', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ orderID: data.orderID })
+              });
+
+              const result = await response.json();
+
+              if (!response.ok || result.status !== 'COMPLETED') {
+                throw new Error(result.error || 'Le paiement n’a pas pu être confirmé.');
+              }
+
+              setPayPalStatus('✅ Paiement test de 5,00 € confirmé. Merci pour votre soutien !', 'success');
+            },
+
+            onCancel: () => {
+              setPayPalStatus('Paiement annulé.');
+            },
+
+            onError: (error) => {
+              console.error(error);
+              setPayPalStatus('❌ Une erreur PayPal est survenue. Réessaie dans quelques instants.', 'error');
+            }
+          }).render('#paypal-button-container');
+        };
+
+        script.onerror = () => {
+          setPayPalStatus('❌ Impossible de charger PayPal.', 'error');
+        };
+
+        document.head.appendChild(script);
+      } catch (error) {
+        console.error(error);
+        setPayPalStatus('❌ ' + error.message, 'error');
+      }
+    }
+
+    loadPayPal();
+  </script>
 
 </body>
 </html>
